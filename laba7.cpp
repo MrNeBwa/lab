@@ -1,35 +1,68 @@
 #include <iostream>
-#include <cmath>
-#define ll long long
-#define ld long long
+#include <string>
+#include <vector>
+#include <fstream>
 
+std::vector<std::string> getMonthsForSeason(const std::string& season) {
+    std::string lowerSeason;
+    for (char c : season) {
+        lowerSeason += tolower(c);
+    }
+
+    if (lowerSeason == "spring") {
+        return { "March", "April", "May" };
+    }
+    else if (lowerSeason == "summer") {
+        return { "June", "July", "August" };
+    }
+    else if (lowerSeason == "autumn") {
+        return { "September", "October", "November" };
+    }
+    else if (lowerSeason == "winter") {
+        return { "December", "January", "February" };
+    }
+    else {
+        return {}; 
+    }
+}
+void writeMonthsToFile(const std::vector<std::string>& months, const std::string& filename) {
+    std::ofstream file(filename);
+
+    if (file.is_open()) {
+        file << "Months:\n";
+        for (const std::string& month : months) {
+            file << "- " << month << "\n";
+        }
+        std::cout << "Months succsesfully writed down" << filename << std::endl;
+        file.close();
+    }
+    else {
+        std::cerr << "Error: can`t open a file for writing\n";
+    }
+}
 
 int main() {
-    ll n;
-    std::cout << "Enter natural number: ";
-    std::cin >> n;
-    if (n <= 0) {
-        std::cout << "Only natural numbers" << std::endl;
-        return 1;
-    }
-    ld cbrt_n = cbrtl(n);
-    ll k_approx = static_cast<ll>(round(cbrt_n));
-    bool found = false;
-    for (ll k = k_approx - 3; k <= k_approx + 3; ++k) {
-        if (k > 0) {
-            ll product = k;
-            product *= (k + 1);
-            product *= (k + 2);
-            if (product == n) {
-                std::cout << n << " = " << k << " * " << (k + 1) << " * " << (k + 2) << std::endl;
-                found = true;
-                break;
-            }
+    std::string seasonInput;
+    std::cout << "Write a season (spring, summer, autumn, winter): ";
+    std::getline(std::cin, seasonInput);
+
+    std::vector<std::string> months = getMonthsForSeason(seasonInput);
+
+    if (!months.empty()) {
+        std::cout << "Write months to file? (Y/n): ";
+        char c;
+        std::cin >> c;
+        if (c == 'Y' || c == 'y')
+            writeMonthsToFile(months, "months.txt");
+        std::cout << "\nMonths:\n";
+        for (auto c : months) {
+            std::cout << "--> " << c << std::endl;
         }
     }
-    if (!found) {
-        std::cout << "This task is impossible" << std::endl;
+    else {
+        std::cout << "Write valid season\n";
     }
+
     return 0;
 }
 
