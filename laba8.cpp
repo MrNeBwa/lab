@@ -3,7 +3,9 @@
 #include <vector>
 #include <cctype>
 #include <algorithm> 
-
+#include <cmath>
+#define ll long long
+#define ld long double
 
 class Complex {
 public:
@@ -107,6 +109,7 @@ int main() {
 
   // TEST
     std::string i1, i2;
+    std::cin.ignore();
 
     std::cout << "Enter the first number: ";
     std::getline(std::cin, i1);
