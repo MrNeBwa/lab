@@ -8,10 +8,10 @@
 int main(){
     int matrix[ROWS][COLS];
 
-    std::cout << "Enter " << ROWS * COLS << " integers for the matrix:\n";
+    //std::cout << "Enter " << ROWS * COLS << " integers for the matrix:\n";
     for (int i = 0; i < ROWS; ++i) {
         for (int j = 0; j < COLS; ++j) {
-            std::cout << "Enter element [" << i << "][" << j << "]: ";
+            //std::cout << "Enter element [" << i << "][" << j << "]: ";
             std::cin >> matrix[i][j];
         }
     }

@@ -16,7 +16,7 @@ int main() {
             int* current_row_ptr = matrix_start[i]; 
         
         for (int j = 0; j < COLS; j++){
-            std::cout << "Enter element [" << i << "] [" << j << "]: ";
+            //std::cout << "Enter element [" << i << "] [" << j << "]: ";
             std::cin >> tmp;
                *current_row_ptr = tmp;
             current_row_ptr++; 

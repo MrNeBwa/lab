@@ -321,6 +321,7 @@ int main(){
              std::cout << "\033[1;31mError:\033[0m Could not load data or data file is empty. Proceeding with empty input." << std::endl;
         } else {
             std::cout << "\033[2J\033[1;1H";
+            print_task(executables[selected_task_index]);
             std::cout << "\033[1;34mInput data from file:\033[0m\n" << input_data << std::endl;
             std::cout << "\n\033[1;36mPress Enter to continue...\033[0m";
             getch_elegant();

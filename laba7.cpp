@@ -43,13 +43,13 @@ void writeMonthsToFile(const std::vector<std::string>& months, const std::string
 
 int main() {
     std::string seasonInput;
-    std::cout << "Write a season (spring, summer, autumn, winter): ";
+    //std::cout << "Write a season (spring, summer, autumn, winter): ";
     std::cin >> seasonInput;
 
     std::vector<std::string> months = getMonthsForSeason(seasonInput);
 
     if (!months.empty()) {
-        std::cout << "Write months to file? (Y/n): ";
+        //std::cout << "Write months to file? (Y/n): ";
         char c;
         std::cin >> c;
         if (c == 'Y' || c == 'y')

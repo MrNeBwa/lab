@@ -7,10 +7,10 @@
 int main() {
   int n, comp = 0;
   
-  std::cout << "Enter the n amount: ";
+  //std::cout << "Enter the n amount: ";
   std::cin >> n;
   int* array = new int[n];
-  std::cout << "Enter the elements of the array:" << std::endl;
+  //std::cout << "Enter the elements of the array:" << std::endl;
   
 
     int* ptr = array;

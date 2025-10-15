@@ -12,7 +12,7 @@
 
 int main(){
   ll n;
-  std::cout << "Enter natural number: ";
+  //std::cout << "Enter natural number: ";
   std::cin >> n;
   if (n <= 0) {
        std::cout << "Only natural numbers" << std::endl;

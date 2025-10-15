@@ -5,7 +5,7 @@
 int main() {
   std::string s;
   int _n, _a;
-  std::cout << "Enter n number: " << std::endl;
+  //std::cout << "Enter n number: " << std::endl;
   std::getline(std::cin, s);
   
   try{
@@ -15,7 +15,7 @@ int main() {
     return 1;
   }
 
-  std::cout << "Enter a value: " << std::endl;
+  //std::cout << "Enter a value: " << std::endl;
   std::getline(std::cin, s);
   try{
     _a = std::stoi(s);

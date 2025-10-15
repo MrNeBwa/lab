@@ -25,7 +25,7 @@ std::string getLastDirectory(const std::string& fullPath) {
 
 int main() {
     std::string path1;
-    std::cout << "Path: ";
+    //std::cout << "Path: ";
     std::cin >> path1;
     std::cout << " -> Last directory: " << getLastDirectory(path1) << std::endl;
     return 0;
