@@ -173,6 +173,17 @@ int show_submenu(string task_name) {
     }
 }
 
+string get_task_from_file(const string& filename){
+  std::ifstream inputf ("./textd/" + filename);
+  if (!inputf){
+        std::cerr << "\033[1;31mError:\033[0m Could not open data file: " << "./data/" + filename << std::endl;
+        return "";
+  }
+  std::stringstream buffer;
+  buffer << inputf.rdbuf();
+  return buffer.str();
+}
+
 string get_data_from_file(const string& filename) {
     std::ifstream inputf ("./data/" + filename);
     if (!inputf) {
@@ -183,6 +194,22 @@ string get_data_from_file(const string& filename) {
     buffer << inputf.rdbuf();
     return buffer.str();
 }
+
+
+bool print_task(string s){ 
+    string task_condition = get_task_from_file(s);
+    //std::cout << "\033[2J\033[1;1H";
+    if (!task_condition.empty()) {
+      std::cout << "\033[1;36m--- УСЛОВИЕ ЗАДАНИЯ ---\033[0m\n";
+      std::cout << task_condition;
+      std::cout << "\033[1;36m-----------------------\033[0m\n\n";
+    } else {
+      std::cout << "\033[1;31m[Файл условия не найден: " << "СМЕРТЬ" << "]\033[0m\n\n";
+    }
+    return true;
+}
+
+
 
 vector<string> get_executables() {
     string ls_output = execute("ls");
@@ -209,7 +236,7 @@ vector<string> get_executables() {
 
 int main(){
     vector<string> executables = get_executables();
-
+    
     if (executables.empty()) {
         std::cout << "\033[1;31mNo executables found.\033[0m" << std::endl;
         return 1;
@@ -221,7 +248,6 @@ int main(){
             size_t num_start = name.find_first_of("0123456789");
             if (num_start != string::npos) {
                 string num_str = name.substr(num_start);
-                // Extract number until non-digit or end of string
                 size_t non_digit = num_str.find_first_not_of("0123456789");
                 if (non_digit != string::npos) {
                     num_str = num_str.substr(0, non_digit);
@@ -233,7 +259,6 @@ int main(){
                         task_count = current_num;
                     }
                 } catch (const std::exception& e) {
-                    // Ignore parsing errors for non-standard names
                 }
             }
         }
@@ -257,22 +282,24 @@ int main(){
         }
     }
 
-
+    start:
     int selected_task_index = show_menu(executables);
     string selected_task_name = executables[selected_task_index];
     int submenu_choice = show_submenu(selected_task_name);
 
     string input_data = "";
+    
+
 
     if (submenu_choice == 0) {
         std::cout << "\033[2J\033[1;1H";
+        print_task(executables[selected_task_index]);
         std::cout << "Введите входные данные для \033[1;33m" << selected_task_name << "\033[0m:\n";
         
-        // This is the fix: read the entire input stream, line by line
+        
         std::stringstream user_input_ss;
         string line;
         
-        // Temporarily set terminal to canonical mode to allow normal line input
         termios oldt, newt;
         tcgetattr(STDIN_FILENO, &oldt);
         newt = oldt;
@@ -283,16 +310,11 @@ int main(){
             user_input_ss << line << "\n";
         }
         
-        // Restore terminal to non-canonical mode for menu
         newt = oldt;
         newt.c_lflag &= ~(ICANON | ECHO);
         tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 
         input_data = user_input_ss.str();
-
-        // Clear remaining input buffer in case of extra characters
-        // while ((line = getch_elegant()) != '\n' && line != EOF); 
-        // A simple flush for safety might be better here, but often unnecessary in modern C++ when switching modes
     } else {
         input_data = get_data_from_file(selected_task_name);
         if (input_data.empty()) {
@@ -315,6 +337,6 @@ int main(){
     std::cout << "\033[1;35m------------------------\033[0m\n";
     std::cout << "\n\033[1;36mPress Enter to exit...\033[0m";
     getch_elegant();
-
+    goto start;
     return 0;
 }
