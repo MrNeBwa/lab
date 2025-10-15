@@ -4,35 +4,8 @@
 
 
 
-int main() {
-  int n, comp = 0;
-  
-  std::cout << "Enter the n amount: ";
-  std::cin >> n;
-  int* array = new int[n];
-  std::cout << "Enter the elements of the array:" << std::endl;
-  
 
-    int* ptr = array;
-    for (int i = 0; i < n; i++) {
-        std::cin >> *ptr;
-        ptr++;
-    }
-    for (int i = 0; i < n; i++) {
-        if (*array == -1) {
-            comp++;
-        }
-        array++;
-    }
-    array -= n;
-    delete[] array;
-
-  std::cout << comp << std::endl;
-  
-
-  std::cout << "The second task!" << std::endl;
-
-
+int main(){
     int matrix[ROWS][COLS];
 
     std::cout << "Enter " << ROWS * COLS << " integers for the matrix:\n";
@@ -72,4 +45,3 @@ int main() {
 
     return 0;
 }
-

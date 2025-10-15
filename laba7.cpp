@@ -44,7 +44,7 @@ void writeMonthsToFile(const std::vector<std::string>& months, const std::string
 int main() {
     std::string seasonInput;
     std::cout << "Write a season (spring, summer, autumn, winter): ";
-    std::getline(std::cin, seasonInput);
+    std::cin >> seasonInput;
 
     std::vector<std::string> months = getMonthsForSeason(seasonInput);
 

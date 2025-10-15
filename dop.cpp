@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <fstream>
 #include <vector>
 #include <sstream>
 #include <algorithm>
@@ -26,7 +27,7 @@ std::string exec(const char* cmd) {
     }
     return result;
 }
-/*
+
 std::string run_command_with_input(const std::string& command, const std::string& input) {
     int in_pipe[2]; 
     int out_pipe[2];
@@ -60,12 +61,12 @@ std::string run_command_with_input(const std::string& command, const std::string
             output += buffer;
         }
         close(out_pipe[0]);
-        waitpid(pid, NULL, 0);
+        //waitpid(pid, NULL, 0);
 
         return output;
     }
 }
-*/
+
 class Data{
 
 };
@@ -129,7 +130,7 @@ int menu(const std::vector<std::string>& options, int selected = 0) {
         }
     }
 }
-int submenu(int task_num) {
+int submenu(string task_num) {
     std::vector<std::string> choices = { "Ввести значения", "Запустить с заданными" };
     int selected = 0;
     while (true) {
@@ -161,6 +162,17 @@ int submenu(int task_num) {
 
 
 
+
+
+
+
+
+
+
+
+
+string make_task () {}
+
 int main(){
     string s = exec("ls"), p;
     std::vector <string> vec;
@@ -168,25 +180,21 @@ int main(){
     while (t >> p){
         vec.push_back(p);
     }
-    //clean 1
     vec.erase(std::remove_if(vec.begin(), vec.end(),
                [](const std::string& s) {
                    return s.find('.') != std::string::npos;
                }),
               vec.end());
 
-    //clean 2
     vec.erase(std::remove_if(vec.begin(), vec.end(),
                [](const std::string& s) {
                    return s.find('d') != std::string::npos;
                }),
               vec.end());
 
-    /*
-    for (auto c : vec){
-        std::cout << c << std::endl;
-    }
-    */
+    
+    
+    
     int task_num = (vec[size(vec)-1]) [size(vec[size(vec)-1])-1] - '0';
     
     Task* tasks = new Task[task_num];
@@ -205,8 +213,19 @@ int main(){
 
 
     int selected_task = menu(vec);
-    int submenu_choice = submenu(selected_task + 1);
+    bool custom_input = submenu(vec[selected_task]);
+    
+    std::string name = vec[selected_task];
+  
+    std::ifstream inputf ("./data/" + name);
 
-
+    std::string data = "";
+    
+    while (inputf >> p){
+      data += p + ' ';
+    }
+    std::cout << "input data: " << data << std::endl; 
+    std::string ssss = run_command_with_input("./" + name, data);
+    std::cout << ssss;
     return 0;
 }
