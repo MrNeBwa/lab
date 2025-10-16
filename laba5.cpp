@@ -3,7 +3,7 @@
 #define COLS 4
 
 int main() {
-    int tmp, sum = 1;
+    long long tmp, sum = 1;
     bool find = false;
     
     int** matrix_start = new int*[ROWS];
@@ -37,7 +37,7 @@ int main() {
     }
     
     if (find){
-        std::cout << sum << std::endl;
+        std::cout << sum << "|" << sum << "|" << sum << std::endl;
     }
     else{
         std::cout << "There is no non-negative, even elements" << std::endl;

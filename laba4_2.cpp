@@ -2,46 +2,51 @@
 #define ROWS 3
 #define COLS 4
 
+int main() {
+    long long tmp, sum = 1;
+    bool find = false;
+    
+    int** matrix_start = new int*[ROWS];
 
-
-
-int main(){
-    int matrix[ROWS][COLS];
-
-    //std::cout << "Enter " << ROWS * COLS << " integers for the matrix:\n";
-    for (int i = 0; i < ROWS; ++i) {
-        for (int j = 0; j < COLS; ++j) {
-            //std::cout << "Enter element [" << i << "][" << j << "]: ";
-            std::cin >> matrix[i][j];
+    for (int i = 0; i < ROWS; i++){
+        matrix_start[i] = new int[COLS];
+    }
+    
+    for (int i = 0; i < ROWS; i++){
+            int* current_row_ptr = matrix_start[i]; 
+        
+        for (int j = 0; j < COLS; j++){
+            //std::cout << "Enter element [" << i << "] [" << j << "]: ";
+            std::cin >> tmp;
+               *current_row_ptr = tmp;
+            current_row_ptr++; 
         }
     }
-    std::cout << std::endl;
-    int result_array[ROWS];
-    for (int i = 0; i < ROWS; ++i) {
-        long long production = 1;
-        bool found = false; 
 
-        for (int j = 0; j < COLS; ++j) {
-            int current = matrix[i][j];
-            if (current > 0 && current % 2 == 0) {
-                production *= current;
-                found = true;
+    for (int i = 0; i < ROWS; i++){
+        int* current_row_ptr = matrix_start[i];
+        
+        for (int j = 0; j < COLS; j++){
+
+            if ((*current_row_ptr) % 2 == 0 && (*current_row_ptr) > 0){
+                sum *= (*current_row_ptr);
+                find = true;
             }
-        }
-
-        if (found) {
-            result_array[i] = production;
-        }
-        else {
-            result_array[i] = 0; 
+            current_row_ptr++; 
         }
     }
-
-    std::cout << "Resulting 1D array:\n";
-    for (long long element : result_array) {
-        std::cout << element << " ";
+    
+    if (find){
+        std::cout << sum << "|" << sum << "|" << sum << std::endl;
     }
-    std::cout << std::endl;
+    else{
+        std::cout << "There is no non-negative, even elements" << std::endl;
+    }
+
+    for (int i = 0; i < ROWS; i++){
+        delete[] matrix_start[i];
+    }
+    delete[] matrix_start;
 
     return 0;
 }
